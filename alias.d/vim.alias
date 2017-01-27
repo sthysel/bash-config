@@ -1,1 +1,2 @@
 alias g="vim --remote"
+alias vi=nvim

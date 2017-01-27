@@ -36,3 +36,6 @@ alias etodo='vim ~/gdrive/planning/todo.org'
 
 # edit notes
 alias en='vim ~/dotfiles/notes.md'
+
+# lock to black
+alias lo='i3lock -c 000000'
