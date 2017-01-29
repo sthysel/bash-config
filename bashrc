@@ -59,3 +59,26 @@ then
     trap "kill ${SSH_AGENT_PID}" 0
 fi
 
+# load creds
+CREDS=${HOME}/creds
+if [ -e "${CREDS}" ]
+then
+    source ${CREDS}
+fi
+
+
+export PROXY=http://${BHP_USER}:${BHP_PASSWORD}@10.17.236.44:8080
+export NO_PROXY=localhost,.bhpbilliton.net
+
+proxy-on() {
+    export https_proxy=${PROXY}
+    export http_proxy=${PROXY}
+    export no_proxy=${NO_PROXY}
+}
+
+proxy-off() {
+    unset https_proxy
+    unset http_proxy
+    unset no_proxy
+}
+
