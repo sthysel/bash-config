@@ -59,6 +59,10 @@ then
     trap "kill ${SSH_AGENT_PID}" 0
 fi
 
+# below is proxy bullshit, creds only live in the air, not in any repo, maybe
+# on a post-it on the laptop lid, stick all creds in ~/creds, if the file exist
+# load it here
+
 # load creds
 CREDS=${HOME}/creds
 if [ -e "${CREDS}" ]
@@ -66,13 +70,14 @@ then
     source ${CREDS}
 fi
 
-
 export PROXY=http://${BHP_USER}:${BHP_PASSWORD}@10.17.236.44:8080
 export NO_PROXY=localhost,.bhpbilliton.net
 
 proxy-on() {
     export https_proxy=${PROXY}
+    export HTTPS_PROXY=${PROXY}
     export http_proxy=${PROXY}
+    export HTTP_PROXY=${PROXY}
     export no_proxy=${NO_PROXY}
 }
 
@@ -80,5 +85,11 @@ proxy-off() {
     unset https_proxy
     unset http_proxy
     unset no_proxy
+}
+
+# pass project/repo e.g: wts/breadcrumb
+gitclonebhp () {
+    URL=https://meinm9@sdappsgit.ent.bhpbilliton.net/scm
+    git clone ${URL}/${1}
 }
 
