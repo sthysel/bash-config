@@ -40,6 +40,10 @@ fi
 
 set -o vi
 
+# virtualenv
+export WORKON_HOME=~/.virtualenvs
+source /usr/bin/virtualenvwrapper.sh
+
 
 # powerline things 
 powerline-daemon -q
