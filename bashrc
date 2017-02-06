@@ -71,14 +71,17 @@ then
 fi
 
 export PROXY=http://${BHP_USER}:${BHP_PASSWORD}@10.17.236.44:8080
-export NO_PROXY=localhost,.bhpbilliton.net
+export NO_PROXY=localhost,.bhpbilliton.net,wtstool
 
 proxy-on() {
     export https_proxy=${PROXY}
     export HTTPS_PROXY=${PROXY}
+
     export http_proxy=${PROXY}
     export HTTP_PROXY=${PROXY}
+
     export no_proxy=${NO_PROXY}
+    export NO_PROXY=${NO_PROXY}
 }
 
 proxy-off() {
