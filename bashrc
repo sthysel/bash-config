@@ -75,7 +75,7 @@ then
 fi
 
 export PROXY=http://${BHP_USER}:${BHP_PASSWORD}@10.17.236.44:8080
-export NO_PROXY=localhost,.bhpbilliton.net,wtstool
+export NO_PROXY=localhost,.bhpbilliton.net,wtstool,jira
 
 proxy-on() {
     export https_proxy=${PROXY}
@@ -99,4 +99,11 @@ gitclonebhp () {
     URL=https://meinm9@sdappsgit.ent.bhpbilliton.net/scm
     git clone ${URL}/${1}
 }
+
+case "${MACHINE_LOCATION}" in
+  BHP) proxy-on ;;
+  *) ;;
+esac
+
+
 
