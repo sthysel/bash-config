@@ -40,50 +40,9 @@ fi
 
 set -o vi
 
-
-# powerline things 
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-
-POWERLINE_BASH=/usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
-. ${POWERLINE_BASH}
-
-
-# below is proxy bullshit, creds only live in the air, not in any repo, maybe
-# on a post-it on the laptop lid, stick all creds in ~/creds, if the file exist
-# load it here
-
-# load creds
-CREDS=${HOME}/creds
-if [ -e "${CREDS}" ]
-then
-    source ${CREDS}
-fi
-
-export PROXY=http://${BHP_USER}:${BHP_PASSWORD}@10.17.236.44:8080
-export NO_PROXY=localhost,.bhpbilliton.net
-
-proxy-on() {
-    export https_proxy=${PROXY}
-    export HTTPS_PROXY=${PROXY}
-    export http_proxy=${PROXY}
-    export HTTP_PROXY=${PROXY}
-    export no_proxy=${NO_PROXY}
-}
-
-proxy-off() {
-    unset https_proxy
-    unset http_proxy
-    unset no_proxy
-}
-
-# pass project/repo e.g: wts/breadcrumb
-gitclonebhp () {
-    URL=https://meinm9@sdappsgit.ent.bhpbilliton.net/scm
-    git clone ${URL}/${1}
-}
-
+# Python  virtualenv
+export WORKON_HOME=~/.virtualenvs
+source /usr/bin/virtualenvwrapper.sh
 
 if [[ -f /etc/bash_completion ]]
 then
@@ -100,4 +59,53 @@ then
     eval "$(<~/.ssh-agent-thing)"
 fi
 
+# powerline things 
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+
+POWERLINE_BASH=/usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
+. ${POWERLINE_BASH}
+
+
+# below is proxy bullshit, creds only live in the air, not in any repo, maybe
+# on a post-it on the laptop lid, stick all creds in ~/creds, if the file exist
+# load it here
+
+# load proxy confif
+PROXY_ONF=${HOME}/.proxy.conf
+if [ -e "${PROXY_CONF}" ]
+then
+    source ${PROXY_CONF}
+fi
+
+
+proxy-on() {
+    export https_proxy=${PROXY}
+    export HTTPS_PROXY=${PROXY}
+
+    export http_proxy=${PROXY}
+    export HTTP_PROXY=${PROXY}
+
+    export no_proxy=${NO_PROXY}
+    export NO_PROXY=${NO_PROXY}
+}
+
+proxy-off() {
+    unset https_proxy
+    unset http_proxy
+    unset no_proxy
+}
+
+# pass project/repo e.g: wts/breadcrumb
+gitclonebhp () {
+    URL=https://meinm9@sdappsgit.ent.bhpbilliton.net/scm
+    git clone ${URL}/${1}
+}
+
+
+case "${MACHINE_LOCATION}" in
+  BHP) proxy-on ;;
+  *) ;;
+esac
 
