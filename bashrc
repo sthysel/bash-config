@@ -50,15 +50,6 @@ POWERLINE_BASH=/usr/lib/python3.6/site-packages/powerline/bindings/bash/powerlin
 . ${POWERLINE_BASH}
 
 
-# sshagent
-SSHAGENT=/usr/bin/ssh-agent                                                                                        
-SSHAGENTARGS="-s"
-if [ -z "${SSH_AUTH_SOCK}" -a -x "SSHAGENT" ]
-then
-    eval `$SSHAGENT ${SSHAGENTARGS}`
-    trap "kill ${SSH_AGENT_PID}" 0
-fi
-
 # below is proxy bullshit, creds only live in the air, not in any repo, maybe
 # on a post-it on the laptop lid, stick all creds in ~/creds, if the file exist
 # load it here
@@ -92,4 +83,21 @@ gitclonebhp () {
     URL=https://meinm9@sdappsgit.ent.bhpbilliton.net/scm
     git clone ${URL}/${1}
 }
+
+
+if [[ -f /etc/bash_completion ]]
+then
+  /etc/bash_completion
+fi
+
+# ssh-agent 
+if ! pgrep -u "$USER" ssh-agent > /dev/null
+then
+    ssh-agent > ~/.ssh-agent-thing
+fi
+if [[ "$SSH_AGENT_PID" == "" ]]
+then
+    eval "$(<~/.ssh-agent-thing)"
+fi
+
 
