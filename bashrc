@@ -40,10 +40,25 @@ fi
 
 set -o vi
 
-# virtualenv
+# Python  virtualenv
 export WORKON_HOME=~/.virtualenvs
 source /usr/bin/virtualenvwrapper.sh
 
+# Autocomplete
+if [[ -f /etc/bash_completion ]]
+then
+  /etc/bash_completion
+fi
+
+# ssh-agent 
+if ! pgrep -u "$USER" ssh-agent > /dev/null
+then
+    ssh-agent > ~/.ssh-agent-thing
+fi
+if [[ "$SSH_AGENT_PID" == "" ]]
+then
+    eval "$(<~/.ssh-agent-thing)"
+fi
 
 # powerline things 
 powerline-daemon -q
@@ -54,28 +69,17 @@ POWERLINE_BASH=/usr/lib/python3.6/site-packages/powerline/bindings/bash/powerlin
 . ${POWERLINE_BASH}
 
 
-# sshagent
-SSHAGENT=/usr/bin/ssh-agent                                                                                        
-SSHAGENTARGS="-s"
-if [ -z "${SSH_AUTH_SOCK}" -a -x "SSHAGENT" ]
-then
-    eval `$SSHAGENT ${SSHAGENTARGS}`
-    trap "kill ${SSH_AGENT_PID}" 0
-fi
-
 # below is proxy bullshit, creds only live in the air, not in any repo, maybe
 # on a post-it on the laptop lid, stick all creds in ~/creds, if the file exist
 # load it here
 
-# load creds
-CREDS=${HOME}/creds
-if [ -e "${CREDS}" ]
+# load proxy confif
+PROXY_CONF=${HOME}/.proxy.conf
+if [ -e "${PROXY_CONF}" ]
 then
-    source ${CREDS}
+    source ${PROXY_CONF}
 fi
 
-export PROXY=http://${BHP_USER}:${BHP_PASSWORD}@10.17.236.44:8080
-export NO_PROXY=localhost,.bhpbilliton.net,wtstool,jira
 
 proxy-on() {
     export https_proxy=${PROXY}
@@ -96,9 +100,10 @@ proxy-off() {
 
 # pass project/repo e.g: wts/breadcrumb
 gitclonebhp () {
-    URL=https://meinm9@sdappsgit.ent.bhpbilliton.net/scm
+    URL=https://${BHP_USER}@sdappsgit.ent.bhpbilliton.net/scm
     git clone ${URL}/${1}
 }
+
 
 case "${MACHINE_LOCATION}" in
   BHP) proxy-on ;;
