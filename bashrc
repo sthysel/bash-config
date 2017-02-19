@@ -105,5 +105,6 @@ case "${MACHINE_LOCATION}" in
   *) ;;
 esac
 
-
+# gitkraken is kraked
+alias gitkraken="LD_PRELOAD=/usr/lib/libcurl.so.3 gitkraken"
 
