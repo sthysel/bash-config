@@ -44,6 +44,7 @@ set -o vi
 export WORKON_HOME=~/.virtualenvs
 source /usr/bin/virtualenvwrapper.sh
 
+# Autocomplete
 if [[ -f /etc/bash_completion ]]
 then
   /etc/bash_completion
@@ -73,7 +74,7 @@ POWERLINE_BASH=/usr/lib/python3.6/site-packages/powerline/bindings/bash/powerlin
 # load it here
 
 # load proxy confif
-PROXY_ONF=${HOME}/.proxy.conf
+PROXY_CONF=${HOME}/.proxy.conf
 if [ -e "${PROXY_CONF}" ]
 then
     source ${PROXY_CONF}
