@@ -61,12 +61,17 @@ then
 fi
 
 # powerline things 
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
+powerline_on() {
+  POWERLINE_BASH=/usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
+  if [[ -f ${POWERLINE_BASH} ]]
+  then
+    powerline-daemon -q
+    POWERLINE_BASH_CONTINUATION=1
+    POWERLINE_BASH_SELECT=1
+    . ${POWERLINE_BASH}
+  fi
+}
 
-POWERLINE_BASH=/usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
-. ${POWERLINE_BASH}
 
 
 # below is proxy bullshit, creds only live in the air, not in any repo, maybe
