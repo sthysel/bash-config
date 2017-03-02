@@ -104,6 +104,10 @@ gitclonebhp () {
     git clone ${URL}/${1}
 }
 
+winmount() {
+    sudo mount -t vboxsf meinm9 ./windows/
+}
+
 
 case "${MACHINE_LOCATION}" in
   BHP) proxy-on ;;
