@@ -61,7 +61,7 @@ then
 fi
 
 # powerline things 
-powerline_on() {
+powerline-on() {
   POWERLINE_BASH=/usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
   if [[ -f ${POWERLINE_BASH} ]]
   then
@@ -73,12 +73,11 @@ powerline_on() {
 }
 
 
-
 # below is proxy bullshit, creds only live in the air, not in any repo, maybe
 # on a post-it on the laptop lid, stick all creds in ~/creds, if the file exist
 # load it here
 
-# load proxy confif
+# load proxy config
 PROXY_CONF=${HOME}/.proxy.conf
 if [ -e "${PROXY_CONF}" ]
 then
