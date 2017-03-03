@@ -71,21 +71,20 @@ powerline-on() {
     . ${POWERLINE_BASH}
   fi
 }
+powerline-on
 
 
 # below is proxy bullshit, creds only live in the air, not in any repo, maybe
 # on a post-it on the laptop lid, stick all creds in ~/creds, if the file exist
 # load it here
-
-# load proxy config
-PROXY_CONF=${HOME}/.proxy.conf
-if [ -e "${PROXY_CONF}" ]
-then
-    source ${PROXY_CONF}
-fi
-
-
 proxy-on() {
+    # load proxy config
+    PROXY_CONF=${HOME}/.proxy.conf
+    if [ -e "${PROXY_CONF}" ]
+    then
+      source ${PROXY_CONF}
+    fi
+
     export https_proxy=${PROXY}
     export HTTPS_PROXY=${PROXY}
 
@@ -106,6 +105,10 @@ proxy-off() {
 gitclonebhp () {
     URL=https://${BHP_USER}@sdappsgit.ent.bhpbilliton.net/scm
     git clone ${URL}/${1}
+}
+
+winmount() {
+    sudo mount -t vboxsf meinm9 ./windows/
 }
 
 
