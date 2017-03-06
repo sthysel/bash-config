@@ -74,7 +74,6 @@ powerline-on() {
 powerline-on
 
 
-
 # below is proxy bullshit, creds only live in the air, not in any repo, maybe
 # on a post-it on the laptop lid, stick all creds in ~/creds, if the file exist
 # load it here
