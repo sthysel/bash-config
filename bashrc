@@ -96,6 +96,12 @@ proxy-on() {
     export NO_PROXY=${NO_PROXY}
 }
 
+if [[ $(hostname) == "devarch" ]]
+then
+	echo "Proxy is configured"
+	proxy-on
+fi
+
 proxy-off() {
     unset https_proxy
     unset http_proxy
