@@ -28,6 +28,7 @@ shopt -s histappend
 # Append unsaved commands to history file.
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
+
 # source all alias and function files in ${ALIAS_HOME} ending in .alias
 ALIAS_HOME=${HOME}/bash-config/alias.d 
 if [ -d ${ALIAS_HOME} ]
