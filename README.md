@@ -1,8 +1,25 @@
 # bash config
 
-Some aliases and config options I'm used to when using bash.
+Some aliases and config options for bash.
 
-# Things not set here
+bash is mostly used on the raspberry pi's scattered arround the place. For some
+reason zsh does not cut it.
+
+```
+.
+├── .config/
+│   └── bash/
+│       └── alias.d/
+│           ├── common.alias
+│           ├── dvcs.alias.disable
+│           ├── python3.alias
+│           ├── vbox.alias
+│           └── vim.alias
+└── .bashrc
+
+```
+
+
 *MACHINE_LOCATION* is set in /etc/bash.rc so all bash shells gets that. That variable
 switches things on (proxy) when a VM or machine is deployed or running at work. 
 Setting proxies depending on network may be better.
