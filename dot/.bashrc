@@ -43,23 +43,31 @@ set -o vi
 
 # Python  virtualenv
 export WORKON_HOME=~/.virtualenvs
-source /usr/bin/virtualenvwrapper.sh
+VIRTENV_WRAPPER=/usr/bin/virtualenvwrapper.sh
+if [ -f $VIRTENV_WRAPPER ]
+then
+    source $VIRTENV_WRAPPER 
+fi
 
 # Autocomplete
-if [[ -f /etc/bash_completion ]]
+BASH_COMPLETION=/etc/bash_completion 
+if [[ -f $BASH_COMPLETION ]]
 then
-  /etc/bash_completion
+    source $BASH_COMPLETION
 fi
 
 # ssh-agent 
-if ! pgrep -u "$USER" ssh-agent > /dev/null
-then
-    ssh-agent > ~/.ssh-agent-thing
-fi
-if [[ "$SSH_AGENT_PID" == "" ]]
-then
-    eval "$(<~/.ssh-agent-thing)"
-fi
+ssh-agent-on() {
+  if ! pgrep -u "$USER" ssh-agent > /dev/null
+  then
+      ssh-agent > ~/.ssh-agent-thing
+  fi
+  if [[ "$SSH_AGENT_PID" == "" ]]
+  then
+      eval "$(<~/.ssh-agent-thing)"
+  fi
+}
+#ssh-agent-on
 
 # powerline things 
 powerline-on() {
